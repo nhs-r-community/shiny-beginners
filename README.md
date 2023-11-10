@@ -6,7 +6,9 @@
 
 This course is being prepared!!
 
-The course is based on the work by Chris Beeley from a [beginners course](https://github.com/ChrisBeeley/shiny_beginners/tree/main) aimed at relatively novice R users and from a [workshop](https://www.youtube.com/watch?v=wEYaeltxlys&list=PLXCrMzQaI6c1Na7BE18OsWtE1WKqrclNn&index=27) for NHS-R Community with corresponding [materials](https://github.com/nhs-r-community/shiny-training) on the NHS-R Community GitHub. 
+The course is based on the work by Chris Beeley from a [beginners course](https://github.com/ChrisBeeley/shiny_beginners/tree/main) aimed at relatively novice R users and from a [workshop](https://www.youtube.com/watch?v=wEYaeltxlys&list=PLXCrMzQaI6c1Na7BE18OsWtE1WKqrclNn&index=27) for NHS-R Community with corresponding [materials](https://github.com/nhs-r-community/shiny-training) on the NHS-R Community GitHub.
+
+References are also made to the book [Mastering Shiny](https://mastering-shiny.org/index.html) by Hadley Wickham and is available free online.
 
 The link to the published materials is in a suggested order.
 
