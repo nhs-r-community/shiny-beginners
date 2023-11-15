@@ -15,8 +15,8 @@ The link to the published materials is in a suggested order.
 # Part 1
 
 ## Introduction
-[Course agenda and aims](https://nhs-r-community.github.io/shiny-beginners/introduction.html#/title-slide) - what is Shiny and create a first demo app from a template
-[First app](https://nhs-r-community.github.io/shiny-beginners/introduction.html#/first-app.html)
+[Course agenda and aims](https://nhs-r-community.github.io/shiny-beginners/introduction.html#/title-slide) - what is Shiny and create a first demo app from a template  
+[First app](https://nhs-r-community.github.io/shiny-beginners/first-app.html#/first-app.html)
 
 ## Break
 [Break](https://nhs-r-community.github.io/shiny-beginners/introduction.html#/session-break-slide.html)
