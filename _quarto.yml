@@ -1,5 +1,8 @@
 project:
   title: "shiny-beginners"
+  render:
+    - "*.qmd"
+    - "!LICENCE.md"
 author: "Zoë Turner"
 format:
   revealjs:
