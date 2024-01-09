@@ -1,9 +1,6 @@
 ---
 title: "Introduction to Shiny"
 subtitle: "Session - Introduction"
-execute:
-  echo: true
-  eval: false
 ---
 
 ## Agenda - session one (about 2 hours)
