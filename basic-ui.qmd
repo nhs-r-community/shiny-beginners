@@ -1,0 +1,266 @@
+---
+title: "Introduction to Shiny"
+subtitle: "Session - Basic User Interface (UI)"
+---
+
+```{r}
+#| label: "libs"
+#| include: false
+#| eval: true
+#| echo: false
+library(countdown)
+```
+
+## Three parts
+
+::: {.incremental}
+- Inputs - text, numeric values, dates, file uploads
+- Outputs - text, tables, plots, downloads
+- Layout - sidebars, tabsets, themes
+:::
+
+
+## Inputs
+
+Input functions are often camelCase with the word `Input` in their name: 
+
+* `sliderInput()`  
+* `selectInput()`  
+* `textInput()`  
+* `numericInput()`
+
+Each have the first argument or parameter as `inputId =` and is the link between the UI with the Server.
+
+## Functions and parameters
+
+Like all functions the arguments names can be dropped and is read by the order:
+
+```{r}
+sliderInput(inputId = "min",
+            name = "Limit (minimum)",
+            value = 50,
+            min = 0)
+```
+
+and not necessarily always listed out like:
+
+```{r}
+sliderInput("min", 
+            "Limit (minimum)", 
+            value = 50, 
+            min = 0)
+```
+
+## Rules for `inputId = `
+
+Only letters and numbers, never use:
+
+* underscores
+* spaces
+* dashes
+* full stops
+* any other special characters
+
+. . . 
+
+It must also be unique so that the UI and Server are linked.
+
+## `label = ` parameter
+
+The second argument or parameter is the human readable label for the control.
+
+There are no restrictions for this at all but be mindful of the reader!
+
+## Built in options for UI controls
+
+[Mastering Shiny](https://mastering-shiny.org/basic-ui.html#inputs) details a number of the controls including:
+
+* free text
+* dates
+* limited choice (radio buttons)
+* multiple choice (check boxes)
+* file uploads
+
+. . .
+
+And there are always extension packages - {shinyWidgets}, {colorpicker}, {sorttable}
+
+## Outputs
+
+The UI outputs act like place holders that are later filled by the Server.
+
+Naming of these needs to also be unique
+
+Outputs are mainly what you find in a report:
+
+* text
+* tables
+* plots
+* file downloads
+
+## Text UI output functions (paired)
+
+::: {.incremental}
+- For regular text the UI function `textOutput()` is usually paired with the server function `renderText()`
+- For a console printed look the UI function `verbatimTextOutput()`is usually pared with the server function `renderPrint()`
+:::
+
+. . .
+
+```{r}
+ui <- fluidPage(
+  textOutput("text"),
+  verbatimTextOutput("print")
+)
+server <- function(input, output, session) {
+  output$text <- renderText("hello!")
+  output$print <- renderPrint("hello!")
+}
+```
+
+Let's see what happens by creating a new shiny app, saving it and running it.
+
+## `{}` and reducing computation
+
+The curly brackets are useful for running code over multiple lines:
+
+```{r}
+ui <- fluidPage(
+  textOutput("text"),
+  verbatimTextOutput("print")
+)
+server <- function(input, output, session) {
+   output$text <- renderText({
+     "hello!"
+   })
+   output$code <- renderPrint({
+     "hello!"
+   })
+}
+```
+
+But the recommendation is to do as little computation as possible in the render functions which means they are often omitted.
+
+## Tables
+
+::: {.incremental}
+- For static tables the UI function `tableOutput()` is paired with the server function `renderTable()`
+- For dymanic tables the UI function `dataTableOutput()`is pared with the server function `renderDataTable()`
+:::
+
+. . .
+
+```{r}
+ui <- fluidPage(
+  tableOutput("static"),
+  dataTableOutput("dynamic")
+)
+server <- function(input, output, session) {
+  output$static <- renderTable(head(mtcars))
+  output$dynamic <- renderDataTable(mtcars, options = list(pageLength = 5))
+}
+```
+
+Let's see what happens by creating a new shiny app, saving it and running it.
+
+## Plots
+
+::: {.incremental}
+- For plots the UI function `plotOutput()` is paired with the server function `renderPlot()`
+- This can be used for base R, {ggplot2} and other packages
+- Plots can be made interactive
+:::
+
+. . .
+
+```{r}
+ui <- fluidPage(
+  plotOutput("plot", width = "400px")
+)
+server <- function(input, output, session) {
+  output$plot <- renderPlot(plot(1:5), res = 96)
+}
+```
+
+Let's see what happens by creating a new shiny app, saving it and running it.
+
+## [Exercise (from Mastering Shiny)](https://mastering-shiny.org/basic-ui.html#exercises-2)
+
+Which of `textOutput()` and `verbatimTextOutput()` should each of the following render functions be paired with?
+
+```{r}
+renderPrint(summary(mtcars))
+
+renderText("Good morning!")
+
+renderPrint(t.test(1:5, 2:6))
+
+```
+
+## Solution
+
+```{r}
+ui <- fluidPage(
+  textOutput("greeting"),
+  verbatimTextOutput("summary"),
+  verbatimTextOutput("ttest")
+)
+server <- function(input, output, session) {
+
+  output$summary <- renderPrint(summary(mtcars))
+  output$greeting <- renderText("Good morning!")
+  output$ttest <- renderPrint(t.test(1:5, 2:6))
+}
+```
+
+## Adding Alt text
+
+Putting the `{}` back in to make the code clearer, parameters like `res` and `alt` for alt text go outside the brackets
+
+```{r}
+#| code-line-numbers: 9
+ui <- fluidPage(
+  plotOutput("plot")
+)
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+
+    plot(1:5)
+
+    }, res = 96, alt = "Scatterplot with random points")
+
+}
+```
+
+. . .
+
+:::{.callout-tip collapse=false appearance='default' icon=true}
+## Checking Alt Text (tip)
+- To check that alt text has worked right click on the chart and select `Inspect Element`.
+- All the html will appear but you should also see `alt = "Scatterplot...`.
+:::
+
+## Reactive Alt text
+
+Because Shiny is reactive and you may want Alt Text to reflect what is selected by the user:
+
+```{r}
+renderPlot({
+        # code to generate plot goes here
+      },
+      alt = reactive({
+        # code to add alt text goes here
+      })
+)
+```
+
+
+## End session
+
+### Acknowledgements
+
+[Mastering Shiny](https://mastering-shiny.org/basic-app.html) by Hadley Wickham
+
+Jumping Rivers [blog about accessibility in R](https://www.jumpingrivers.com/blog/accessibility-alt-text-in-r/)
+
+Read more from Jumping Rivers on [accessible standards in Shiny](https://www.jumpingrivers.com/blog/accessible-shiny-standards-wcag/)
