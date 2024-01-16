@@ -42,6 +42,27 @@ library(countdown)
 - It also supports modules which can be reused across complex shiny apps
 :::
 
+## No titles
+
+:::{.callout-tip collapse=false appearance='default' icon=true}
+## Titles using `titlePanel()`
+The template app had a title in the `ui <- fluidPage()` section
+
+```{r}
+    # Application title
+    titlePanel("Old Faithful Geyser Data"),
+```
+
+but this is not included using this method.
+:::
+
+. . .
+
+::: {.incremental}
+- Let's add the title to the minimal template
+- Change the name
+- Note there is a comma at the end of the line - not good practice to leave in but it works and useful for adding future code to this section
+:::
 
 ## Bit more to the app
 
