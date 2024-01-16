@@ -1,0 +1,130 @@
+---
+title: "Introduction to Shiny"
+subtitle: "Session - Adding dynamic elements"
+---
+
+```{r}
+#| label: "libs"
+#| include: false
+#| eval: true
+#| echo: false
+```
+
+## Introducing a new input
+
+Four inputs were mentioned previously:
+
+* `sliderInput()`  
+* `selectInput()`  
+* `textInput()`  
+* `numericInput()`
+
+. . .
+
+And there are more! We are going to use `checkboxGroupInput()` in a new app.
+
+## Building a new app
+
+Starting again with a new script, typing `shinyapp` and then Shift + Tab add the code to `ui`, save and Run App
+
+```{r}
+ checkboxGroupInput(
+    inputId = "number1",
+    label = "What are your favourite languages?",
+    choices = c("SQL", "Python", "R")
+  ),
+```
+
+## Adding an action button
+
+Next we'll add an action button so, after making a selection, the user presses a button for the next thing to happen:
+
+```{r}
+  actionButton(inputId = "number2",
+               label = "List the selections",
+               icon = icon("question"))
+```
+
+. . .
+
+:::{.callout-warning collapse=false appearance='default' icon=true}
+## Don't forget the comma!
+- In the ui the functions need a comma to separate
+- The code will break unless it reads `checkboxGroupInput(...)`  **,**  `actionButton(...)`
+:::
+
+## Panels
+
+Before we move to the interactive part of shiny we've currently got the layout where everything is appearing on the page as if it were a document.
+
+. . .
+
+To give the app more structure that are more familiar we need to introduce three functions:
+
+. . .
+
+```{r}
+#| code-line-numbers: 2|3|15
+fluidPage(titlePanel("Basic Demo"),
+                sidebarLayout(
+                sidebarPanel(
+                    checkboxGroupInput(
+                      inputId = "fav_things",
+                      label = "What are your favourite languages?",
+                      choices = c("SQL", "Python", "R")
+                    ),
+                    actionButton(
+                      inputId = "show_fav_things",
+                      label = "Selected",
+                      icon = icon("question")
+                    )
+                ),
+                mainPanel(textOutput(outputId = "print_fav_things"))
+                )
+)
+```
+
+## Tips
+
+::: {.incremental}
+- If `sidebarPanel()` is used then the code won't run without `mainPanel()` 
+- If the copying and pasting loses the formatting, highlight and use `Ctrl+i` for indentation
+- Alternatively install {styler} which can reformat selection or the entire script
+:::
+
+## `output$` and `input$` in the server
+
+::: {.incremental}
+- We now need to add in the server and have it "reactive" to what is selected in the ui
+- The output will be simple in that we'll just show what is selected (a useful thing sometimes for debugging)
+- Note in the `mainPanel()` the function `textOutput()` is used and that has a partnering function: `renderText()` in the server
+:::
+
+## server code
+
+```{r}
+observeEvent(input$show_fav_things, {
+    output$print_fav_things <- renderText(input$fav_things)
+    })
+```
+
+Copy and paste this into the server `function(input, output, session) {}`, save and run
+
+. . .
+
+Then replace the names with `name1`, `name2`, `name3`, paying attention to where the repetitions occur
+
+## `observeEvent()`
+
+Changing the names won't affect the ui but shows you were the connections are made and they may not be intuitive.
+
+
+
+
+## End session
+
+### Acknowledgements
+
+[Mastering Shiny](https://mastering-shiny.org/basic-app.html) by Hadley Wickham
+
+[Building Web Apps with R Shiny](https://debruine.github.io/shinyintro/first-app.html) from [PsyTeachR](https://psyteachr.github.io/)
