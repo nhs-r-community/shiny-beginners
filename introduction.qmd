@@ -111,6 +111,13 @@ Chapter overview
 
 Changing the inputs (from the slider) changes the outputs (the chart)
 
+## Viewing as a pop-up... or not
+
+::: {.info data-latex=""}
+![](img/rstudio_run_app.png)
+You can change whether the app opens in a separate window in RStudio, the RStudio viewer pane, or externally in your web browser. Use whichever works best for you and your computer setup.
+:::
+
 ## Listening?
 
 Before closing the app look at the R Console:
@@ -179,3 +186,4 @@ As RStudio renamed to Posit in 2022 to extend their language association beyond 
 [Beginners course by Chris Beeley](https://github.com/ChrisBeeley/shiny_beginners/tree/main) aimed at relatively novice R users  
 [Shiny workshop for NHS-R Community](https://www.youtube.com/watch?v=wEYaeltxlys&list=PLXCrMzQaI6c1Na7BE18OsWtE1WKqrclNn&index=27)  
 [Shiny workshop materials](https://github.com/nhs-r-community/shiny-training) on the NHS-R Community GitHub.
+[Building Web Apps with R Shiny](https://debruine.github.io/shinyintro/first-app.html) from [PsyTeachR](https://psyteachr.github.io/)

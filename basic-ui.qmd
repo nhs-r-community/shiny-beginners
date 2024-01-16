@@ -33,7 +33,7 @@ Each have the first argument or parameter as `inputId =` and is the link between
 
 ## Functions and parameters
 
-Like all functions the arguments names can be dropped and is read by the order:
+Like all functions the arguments names can be dropped and is read by the order so instead of:
 
 ```{r}
 sliderInput(inputId = "min",
@@ -41,15 +41,23 @@ sliderInput(inputId = "min",
             value = 50,
             min = 0)
 ```
+  
 
-and not necessarily always listed out like:
-
+you will often see:
+  
 ```{r}
 sliderInput("min", 
             "Limit (minimum)", 
             value = 50, 
             min = 0)
 ```
+
+. . .
+
+:::{.callout-tip collapse=false appearance='default' icon=true}
+## First two argument names
+All inputs need an `inputId` and a `label` so these are conventionally omitted.
+:::
 
 ## Rules for `inputId = `
 
@@ -87,16 +95,12 @@ And there are always extension packages - {shinyWidgets}, {colorpicker}, {sortta
 
 ## Outputs
 
-The UI outputs act like place holders that are later filled by the Server.
-
-Naming of these needs to also be unique
-
-Outputs are mainly what you find in a report:
-
-* text
-* tables
-* plots
-* file downloads
+::: {.incremental}
+- The UI outputs act like place holders that are later filled by the Server.
+- Naming of these needs to also be unique
+- Argument names are usually omitted (like the input functions `inputId` and `label`)
+- Outputs are mainly what you find in a report: text, tables, plots, file downloads
+:::
 
 ## Text UI output functions (paired)
 
@@ -195,6 +199,20 @@ renderText("Good morning!")
 
 renderPrint(t.test(1:5, 2:6))
 
+```
+
+```{r}
+#| eval: true
+#| echo: false
+countdown::countdown(minutes = 8,
+                     color_border = "#005EB8",
+                     color_text = "#005EB8",
+                     color_running_text = "white",
+                     color_running_background = "#005EB8",
+                     color_finished_text = "#005EB8",
+                     color_finished_background = "white",
+                     margin = "0.9em",
+                     font_size = "2em")
 ```
 
 ## Solution
