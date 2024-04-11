@@ -33,7 +33,8 @@ Each have the first argument or parameter as `inputId =` and is the link between
 
 ## Functions and parameters
 
-Like all functions the arguments names can be dropped and is read by the order so instead of:
+Like all functions the arguments names can be dropped and read by the order.
+So instead of:
 
 ```{r}
 sliderInput(inputId = "min",
@@ -61,9 +62,8 @@ All inputs need an `inputId` and a `label` so these are conventionally omitted.
 
 ## Rules for `inputId = `
 
-Only letters and numbers, never use:
+Only letters, numbers and underscores, never use:
 
-* underscores
 * spaces
 * dashes
 * full stops
