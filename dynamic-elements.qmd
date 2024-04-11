@@ -182,9 +182,38 @@ countdown::countdown(minutes = 10,
 
 ## `observeEvent()`
 
-Takes the input from the button in this example and until it's pressed it won't print anything.
+::: {.incremental}
+- The app takes the input from the button in this example and until the button is pressed nothing will be printed.
+- Once pressed any selection or de-selection is updated automatically.
+- What about making the app require the button to be pressed before printing?
+- For that we need a different function...
+:::
 
-Once selected though any selection or de-selection is updated automatically.
+## `bindEvent()`
+
+`bindEvent()` can be used to execute only when a button is pressed. We'll replace the code 
+
+```{r}
+  observeEvent(input$name2, {
+    output$name3 <- renderText(input$name1)
+  })
+```
+
+with 
+
+```{r}
+output$name3 <- renderText({
+  input$name1
+}) |>
+  bindEvent(input$name2)
+
+```
+
+:::{.callout-warning collapse=false appearance='default' icon=true}
+## Remember your code will be different now
+- In the last slide you will have changed `name1` and so on to something more readable!
+- If names don't match you might not get an error just nothing prints.
+:::
 
 
 ## End session

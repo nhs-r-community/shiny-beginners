@@ -1857,7 +1857,7 @@ Zoë Turner
 <p>Replace the names <code>name1</code>, <code>name2</code>, <code>name3</code> with more descriptive names, paying attention to where the repetitions occur</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_da6e2edc" data-update-every="1" tabindex="0" style="right:0;bottom:0;margin:0.9em;font-size:2em;">
+<div class="countdown" id="timer_71c70196" data-update-every="1" tabindex="0" style="right:0;bottom:0;margin:0.9em;font-size:2em;">
 <div class="countdown-controls">
 <button class="countdown-bump-down">−</button><button class="countdown-bump-up">&amp;plus;</button>
 </div>
@@ -1866,8 +1866,44 @@ Zoë Turner
 </div>
 </div>
 </section><section id="observeevent" class="slide level2"><h2><code>observeEvent()</code></h2>
-<p>Takes the input from the button in this example and until it’s pressed it won’t print anything.</p>
-<p>Once selected though any selection or de-selection is updated automatically.</p>
+<div>
+<ul>
+<li class="fragment">The app takes the input from the button in this example and until the button is pressed nothing will be printed.</li>
+<li class="fragment">Once pressed any selection or de-selection is updated automatically.</li>
+<li class="fragment">What about making the app require the button to be pressed before printing?</li>
+<li class="fragment">For that we need a different function…</li>
+</ul>
+</div>
+</section><section id="bindevent" class="slide level2"><h2><code>bindEvent()</code></h2>
+<p><code>bindEvent()</code> can be used to execute only when a button is pressed. We’ll replace the code</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>name2, {</span>
+<span id="cb6-2"><a href></a>    output<span class="sc">$</span>name3 <span class="ot">&lt;-</span> <span class="fu">renderText</span>(input<span class="sc">$</span>name1)</span>
+<span id="cb6-3"><a href></a>  })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>with</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href></a>output<span class="sc">$</span>name3 <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb7-2"><a href></a>  input<span class="sc">$</span>name1</span>
+<span id="cb7-3"><a href></a>}) <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href></a>  <span class="fu">bindEvent</span>(input<span class="sc">$</span>name2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Remember your code will be different now</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>In the last slide you will have changed <code>name1</code> and so on to something more readable!</li>
+<li>If names don’t match you might not get an error just nothing prints.</li>
+</ul>
+</div>
+</div>
+</div>
 </section><section id="end-session" class="slide level2"><h2>End session</h2>
 <h3 id="acknowledgements">Acknowledgements</h3>
 <p><a href="https://mastering-shiny.org/basic-app.html">Mastering Shiny</a> by Hadley Wickham</p>
