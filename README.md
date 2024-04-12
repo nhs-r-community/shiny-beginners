@@ -19,9 +19,9 @@ The link to the published materials is in a suggested order.
 [First app](https://nhs-r-community.github.io/shiny-beginners/first-app.html)
 
 ## Break
-[Break](https://nhs-r-community.github.io/shiny-beginners/session-break-slide.html)
+[Break](https://nhs-r-community.github.io/shiny-beginners/session-break-slide.html)  
 
-[Basic UI](https://nhs-r-community.github.io/shiny-beginners/basic-ui.html)
+[Basic UI](https://nhs-r-community.github.io/shiny-beginners/basic-ui.html)  
 [Dynamic Elements](https://nhs-r-community.github.io/shiny-beginners/dynamic-elements.html)
 
 # Part 2
