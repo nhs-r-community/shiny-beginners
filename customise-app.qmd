@@ -1,0 +1,34 @@
+---
+title: "Introduction to Shiny"
+subtitle: "Session - Customising apps"
+---
+
+```{r}
+#| label: "libs"
+#| include: false
+#| eval: true
+#| echo: false
+library(countdown)
+```
+
+## Layouts
+
+The layouts of Shiny apps are very flexible with customisation using Shiny functions or even HTML code.
+
+::: {.incremental}
+- Comprehensive documentation can be found for Shiny in R on the [Posit website](https://shiny.posit.co/r/articles/build/layout-guide/) ([Python](https://shiny.posit.co/py/) too!).
+
+- [Galleries](https://shiny.posit.co/r/gallery/) can give you and idea of what is possible, along with the code.
+:::
+
+## {bslib} package
+
+A package for real-time theming available through CRAN:
+
+```{r}
+install.packages("bslib")
+```
+
+There is a talk on bslib and themes by Carson Sievert from the [2020 NHS-R Community conference](https://www.youtube.com/watch?v=b9WWNO4P2nY) on YouTube and [slides](https://talks.cpsievert.me/20201112/#1).
+
+## End session
