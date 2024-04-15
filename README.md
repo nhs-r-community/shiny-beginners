@@ -26,7 +26,7 @@ The link to the published materials is in a suggested order.
 
 # Part 2
 
-
+[Publishing apps](https://nhs-r-community.github.io/shiny-beginners/publishing-apps.html)  
 
 # Spotted a mistake?
 Please let us know if there are mistakes or improvements by creating an 
