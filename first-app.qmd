@@ -38,7 +38,7 @@ library(countdown)
 :::{.callout-tip collapse=false appearance='default' icon=true}
 ## {golem}
 - If the app is big or is being built for production then consider looking into {golem}
-- {golem} uses many principles from R package development
+- {golem} uses many principles from R package development - check out [nhsbsaShinyR template](https://github.com/nhsbsa-data-analytics/nhsbsaShinyR)
 - It also supports modules which can be reused across complex shiny apps
 :::
 
