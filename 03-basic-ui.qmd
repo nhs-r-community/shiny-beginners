@@ -36,20 +36,23 @@ Like all functions the arguments names can be dropped and read by the order.
 So instead of:
 
 ```{r}
-sliderInput(inputId = "min",
-            name = "Limit (minimum)",
-            value = 50,
-            min = 0)
+sliderInput(
+  inputId = "min",
+  name = "Limit (minimum)",
+  value = 50,
+  min = 0
+)
 ```
   
 
 you will often see:
   
 ```{r}
-sliderInput("min", 
-            "Limit (minimum)", 
-            value = 50, 
-            min = 0)
+sliderInput("min",
+  "Limit (minimum)",
+  value = 50,
+  min = 0
+)
 ```
 
 . . .
@@ -133,12 +136,12 @@ ui <- fluidPage(
   verbatimTextOutput("print")
 )
 server <- function(input, output, session) {
-   output$text <- renderText({
-     "hello!"
-   })
-   output$code <- renderPrint({
-     "hello!"
-   })
+  output$text <- renderText({
+    "hello!"
+  })
+  output$code <- renderPrint({
+    "hello!"
+  })
 }
 ```
 
@@ -197,21 +200,22 @@ renderPrint(summary(mtcars))
 renderText("Good morning!")
 
 renderPrint(t.test(1:5, 2:6))
-
 ```
 
 ```{r}
 #| eval: true
 #| echo: false
-countdown::countdown(minutes = 8,
-                     color_border = "#005EB8",
-                     color_text = "#005EB8",
-                     color_running_text = "white",
-                     color_running_background = "#005EB8",
-                     color_finished_text = "#005EB8",
-                     color_finished_background = "white",
-                     margin = "0.9em",
-                     font_size = "2em")
+countdown::countdown(
+  minutes = 8,
+  color_border = "#005EB8",
+  color_text = "#005EB8",
+  color_running_text = "white",
+  color_running_background = "#005EB8",
+  color_finished_text = "#005EB8",
+  color_finished_background = "white",
+  margin = "0.9em",
+  font_size = "2em"
+)
 ```
 
 ## Solution
@@ -223,7 +227,6 @@ ui <- fluidPage(
   verbatimTextOutput("ttest")
 )
 server <- function(input, output, session) {
-
   output$summary <- renderPrint(summary(mtcars))
   output$greeting <- renderText("Good morning!")
   output$ttest <- renderPrint(t.test(1:5, 2:6))
@@ -240,12 +243,13 @@ ui <- fluidPage(
   plotOutput("plot")
 )
 server <- function(input, output, session) {
-  output$plot <- renderPlot({
-
-    plot(1:5)
-
-    }, res = 96, alt = "Scatterplot with random points")
-
+  output$plot <- renderPlot(
+    {
+      plot(1:5)
+    },
+    res = 96,
+    alt = "Scatterplot with random points"
+  )
 }
 ```
 
@@ -262,12 +266,13 @@ server <- function(input, output, session) {
 Because Shiny is reactive and you may want Alt Text to reflect what is selected by the user:
 
 ```{r}
-renderPlot({
-        # code to generate plot goes here
-      },
-      alt = reactive({
-        # code to add alt text goes here
-      })
+renderPlot(
+  {
+    # code to generate plot goes here
+  },
+  alt = reactive({
+    # code to add alt text goes here
+  })
 )
 ```
 

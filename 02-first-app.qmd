@@ -60,9 +60,9 @@ Either is fine
 ## Titles using `titlePanel()`
 The template app had a title in the `ui <- fluidPage()` section
 
-```{r}
+```{r titlePanel}
     # Application title
-    titlePanel("Old Faithful Geyser Data"),
+    titlePanel("Old Faithful Geyser Data")
 ```
 
 but this is not included using this method.

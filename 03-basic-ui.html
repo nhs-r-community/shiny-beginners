@@ -1725,17 +1725,20 @@ NHS-R Community
 </section><section id="functions-and-parameters" class="slide level2"><h2>Functions and parameters</h2>
 <p>Like all functions the arguments names can be dropped and read by the order. So instead of:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href></a><span class="fu">sliderInput</span>(<span class="at">inputId =</span> <span class="st">&quot;min&quot;</span>,</span>
-<span id="cb1-2"><a href></a>            <span class="at">name =</span> <span class="st">&quot;Limit (minimum)&quot;</span>,</span>
-<span id="cb1-3"><a href></a>            <span class="at">value =</span> <span class="dv">50</span>,</span>
-<span id="cb1-4"><a href></a>            <span class="at">min =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href></a><span class="fu">sliderInput</span>(</span>
+<span id="cb1-2"><a href></a>  <span class="at">inputId =</span> <span class="st">&quot;min&quot;</span>,</span>
+<span id="cb1-3"><a href></a>  <span class="at">name =</span> <span class="st">&quot;Limit (minimum)&quot;</span>,</span>
+<span id="cb1-4"><a href></a>  <span class="at">value =</span> <span class="dv">50</span>,</span>
+<span id="cb1-5"><a href></a>  <span class="at">min =</span> <span class="dv">0</span></span>
+<span id="cb1-6"><a href></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>you will often see:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href></a><span class="fu">sliderInput</span>(<span class="st">&quot;min&quot;</span>, </span>
-<span id="cb2-2"><a href></a>            <span class="st">&quot;Limit (minimum)&quot;</span>, </span>
-<span id="cb2-3"><a href></a>            <span class="at">value =</span> <span class="dv">50</span>, </span>
-<span id="cb2-4"><a href></a>            <span class="at">min =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href></a><span class="fu">sliderInput</span>(<span class="st">&quot;min&quot;</span>,</span>
+<span id="cb2-2"><a href></a>  <span class="st">&quot;Limit (minimum)&quot;</span>,</span>
+<span id="cb2-3"><a href></a>  <span class="at">value =</span> <span class="dv">50</span>,</span>
+<span id="cb2-4"><a href></a>  <span class="at">min =</span> <span class="dv">0</span></span>
+<span id="cb2-5"><a href></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -1820,12 +1823,12 @@ NHS-R Community
 <span id="cb4-3"><a href></a>  <span class="fu">verbatimTextOutput</span>(<span class="st">&quot;print&quot;</span>)</span>
 <span id="cb4-4"><a href></a>)</span>
 <span id="cb4-5"><a href></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb4-6"><a href></a>   output<span class="sc">$</span>text <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
-<span id="cb4-7"><a href></a>     <span class="st">&quot;hello!&quot;</span></span>
-<span id="cb4-8"><a href></a>   })</span>
-<span id="cb4-9"><a href></a>   output<span class="sc">$</span>code <span class="ot">&lt;-</span> <span class="fu">renderPrint</span>({</span>
-<span id="cb4-10"><a href></a>     <span class="st">&quot;hello!&quot;</span></span>
-<span id="cb4-11"><a href></a>   })</span>
+<span id="cb4-6"><a href></a>  output<span class="sc">$</span>text <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb4-7"><a href></a>    <span class="st">&quot;hello!&quot;</span></span>
+<span id="cb4-8"><a href></a>  })</span>
+<span id="cb4-9"><a href></a>  output<span class="sc">$</span>code <span class="ot">&lt;-</span> <span class="fu">renderPrint</span>({</span>
+<span id="cb4-10"><a href></a>    <span class="st">&quot;hello!&quot;</span></span>
+<span id="cb4-11"><a href></a>  })</span>
 <span id="cb4-12"><a href></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>But the recommendation is to do as little computation as possible in the render functions which means they are often omitted.</p>
@@ -1882,7 +1885,7 @@ NHS-R Community
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_4837235a" data-update-every="1" tabindex="0" style="right:0;bottom:0;margin:0.9em;font-size:2em;">
+<div class="countdown" id="timer_534ea4af" data-update-every="1" tabindex="0" style="right:0;bottom:0;margin:0.9em;font-size:2em;">
 <div class="countdown-controls">
 <button class="countdown-bump-down">−</button><button class="countdown-bump-up">&amp;plus;</button>
 </div>
@@ -1898,11 +1901,10 @@ NHS-R Community
 <span id="cb8-4"><a href></a>  <span class="fu">verbatimTextOutput</span>(<span class="st">&quot;ttest&quot;</span>)</span>
 <span id="cb8-5"><a href></a>)</span>
 <span id="cb8-6"><a href></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb8-7"><a href></a></span>
-<span id="cb8-8"><a href></a>  output<span class="sc">$</span>summary <span class="ot">&lt;-</span> <span class="fu">renderPrint</span>(<span class="fu">summary</span>(mtcars))</span>
-<span id="cb8-9"><a href></a>  output<span class="sc">$</span>greeting <span class="ot">&lt;-</span> <span class="fu">renderText</span>(<span class="st">&quot;Good morning!&quot;</span>)</span>
-<span id="cb8-10"><a href></a>  output<span class="sc">$</span>ttest <span class="ot">&lt;-</span> <span class="fu">renderPrint</span>(<span class="fu">t.test</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>))</span>
-<span id="cb8-11"><a href></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-7"><a href></a>  output<span class="sc">$</span>summary <span class="ot">&lt;-</span> <span class="fu">renderPrint</span>(<span class="fu">summary</span>(mtcars))</span>
+<span id="cb8-8"><a href></a>  output<span class="sc">$</span>greeting <span class="ot">&lt;-</span> <span class="fu">renderText</span>(<span class="st">&quot;Good morning!&quot;</span>)</span>
+<span id="cb8-9"><a href></a>  output<span class="sc">$</span>ttest <span class="ot">&lt;-</span> <span class="fu">renderPrint</span>(<span class="fu">t.test</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>))</span>
+<span id="cb8-10"><a href></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="adding-alt-text" class="slide level2"><h2>Adding Alt text</h2>
 <p>Putting the <code><a href="https://rdrr.io/r/base/Paren.html">{}</a></code> back in to make the code clearer, parameters like <code>res</code> and <code>alt</code> for alt text go outside the brackets</p>
@@ -1911,13 +1913,14 @@ NHS-R Community
 <span id="cb9-2"><a href></a>  <span class="fu">plotOutput</span>(<span class="st">&quot;plot&quot;</span>)</span>
 <span id="cb9-3"><a href></a>)</span>
 <span id="cb9-4"><a href></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb9-5"><a href></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb9-6"><a href></a></span>
-<span id="cb9-7"><a href></a>    <span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
-<span id="cb9-8"><a href></a></span>
-<span id="cb9-9"><a href></a>    }, <span class="at">res =</span> <span class="dv">96</span>, <span class="at">alt =</span> <span class="st">&quot;Scatterplot with random points&quot;</span>)</span>
-<span id="cb9-10"><a href></a></span>
-<span id="cb9-11"><a href></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-5"><a href></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>(</span>
+<span id="cb9-6"><a href></a>    {</span>
+<span id="cb9-7"><a href></a>      <span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb9-8"><a href></a>    },</span>
+<span id="cb9-9"><a href></a>    <span class="at">res =</span> <span class="dv">96</span>,</span>
+<span id="cb9-10"><a href></a>    <span class="at">alt =</span> <span class="st">&quot;Scatterplot with random points&quot;</span></span>
+<span id="cb9-11"><a href></a>  )</span>
+<span id="cb9-12"><a href></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -1940,13 +1943,14 @@ NHS-R Community
 </section><section id="reactive-alt-text" class="slide level2"><h2>Reactive Alt text</h2>
 <p>Because Shiny is reactive and you may want Alt Text to reflect what is selected by the user:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href></a><span class="fu">renderPlot</span>({</span>
-<span id="cb10-2"><a href></a>        <span class="co"># code to generate plot goes here</span></span>
-<span id="cb10-3"><a href></a>      },</span>
-<span id="cb10-4"><a href></a>      <span class="at">alt =</span> <span class="fu">reactive</span>({</span>
-<span id="cb10-5"><a href></a>        <span class="co"># code to add alt text goes here</span></span>
-<span id="cb10-6"><a href></a>      })</span>
-<span id="cb10-7"><a href></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href></a><span class="fu">renderPlot</span>(</span>
+<span id="cb10-2"><a href></a>  {</span>
+<span id="cb10-3"><a href></a>    <span class="co"># code to generate plot goes here</span></span>
+<span id="cb10-4"><a href></a>  },</span>
+<span id="cb10-5"><a href></a>  <span class="at">alt =</span> <span class="fu">reactive</span>({</span>
+<span id="cb10-6"><a href></a>    <span class="co"># code to add alt text goes here</span></span>
+<span id="cb10-7"><a href></a>  })</span>
+<span id="cb10-8"><a href></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="end-session" class="slide level2"><h2>End session</h2>
 <h3 id="acknowledgements">Acknowledgements</h3>

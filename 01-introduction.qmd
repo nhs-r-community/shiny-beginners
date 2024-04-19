@@ -4,16 +4,15 @@ title: "Introduction"
 
 ## Welcome
 
-- Ask questions
 - We'll have regular breaks
-- Material is at 
+- Material available at [github.com/nhs-r-community/shiny-beginners](https://github.com/nhs-r-community/shiny-beginners)
+- Ask questions
 
 ## What is Shiny?
 
 -   Shiny is a web application programming framework
 -   The language of the web (HTML, JavaScript, and CSS) all called from R
 -   It requires no knowledge of HTML, JavaScript, or CSS, but if you have that knowledge you can add more of these languages
-
 
 ## Examples of Shiny
 

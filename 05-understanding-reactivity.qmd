@@ -68,7 +68,6 @@ Four inputs were mentioned previously:
 * `selectInput()`  
 * `textInput()`  
 * `numericInput()`
-
 . . .
 
 And there are more! We are going to use `checkboxGroupInput()` in a new app.
@@ -77,8 +76,8 @@ And there are more! We are going to use `checkboxGroupInput()` in a new app.
 
 Starting again with a new script, typing `shinyapp` and then Shift + Tab add the code to `ui`, save and Run App
 
-```{r}
- titlePanel("Basic Demo"), # Title
+```{r title and checkbox}
+ titlePanel("Basic Demo"), 
  checkboxGroupInput(
     inputId = "name1",
     label = "What are your favourite languages?",
