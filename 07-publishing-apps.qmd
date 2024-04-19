@@ -1,0 +1,55 @@
+---
+title: "Publishing applications"
+---
+
+```{r}
+#| label: "libs"
+#| include: false
+#| eval: true
+#| echo: false
+
+library(countdown)
+```
+
+## Brief overview of options
+
+::: {.incremental}
+- Details of the options, and implications for sensitive data can be found on NHS-R's [Statement on Tools](https://tools.nhsrcommunity.com/statement-on-using-tools-shiny.html)
+
+- Wherever data is sensitive the ideal is to host a Shiny app using something like [Posit Connect](https://posit.co/products/enterprise/connect/).
+
+- More information on non-sensitive data options can be followed from the [Shiny Intro book](https://debruine.github.io/shinyintro/sharing.html#shinyapps.io) from PsyTeachR.
+
+- Setting that up is beyond the scope of this course but there will be people in NHS-R Community who have experience of doing this in their organisations.
+:::
+
+## Share in an R package
+
+For other R users one of the best ways to launch the Shiny, without having to open a particular script and run a button, it is possible to launch it from an [R package](https://debruine.github.io/shinyintro/sharing.html#in-an-r-package).
+
+Creating an R package is easy to set up with a package called {usethis} and there is a great slide deck on how to get set up started through R Forwards:
+
+* [Packages in a nutshell](http://bit.ly/pkg-dev-1)
+* [Setting up your system](http://bit.ly/pkg-dev-2)
+* [Your first package](http://bit.ly/pkg-dev-3)
+* [Package documentation](http://bit.ly/pkg-dev-4)
+
+## Hosting for non-sensitive/simple apps
+
+Free options:
+
+::: {.incremental}
+- [RPubs](https://rpubs.com/) - no search facility
+- [ShinyLive](https://posit-dev.github.io/r-shinylive/) - requires GitHub or [Netlify](https://www.netlify.com/) to publish. Example of a [Shiny app](https://nhs-r-community.github.io/shinylive-example/) and embedded into a Quarto [blog](https://www.rostrum.blog/posts/2023-10-08-govspeakify-tables/) 
+- [shinyapps.io](https://www.shinyapps.io/) - up to 5 apps can be hosted
+:::
+
+## Hosting for sensitive data
+
+::: {.incremental}
+- [shinyapps.io](https://www.shinyapps.io/) - Standard or Professional account
+- A possibility using [DevOps and Virtual Machines like Docker](https://github.com/erossini/DeployShinyProxyAndApps) or through [Azure Databricks](https://learn.microsoft.com/en-us/azure/databricks/sparkr/shiny) 
+- Always have the option to run locally through RStudio or VS Code
+:::
+
+## End session

@@ -1,0 +1,400 @@
+---
+title: "Your first app"
+---
+## Starting from scratch
+
+- Learn to create a shiny app from scratch
+- Different _input controls_ we can use in the `ui`
+- Outputs for displaying reactive content in the `ui`
+
+## Main components
+
+`app.R` has three components:
+
+- a user interface object
+
+- a server function
+
+- a call to `shinyApp()`
+
+::: callout-note
+## app.R vs ui.R + server.R
+You might occasionally see the `ui` and `server` objects split into two different scripts.
+This was the traditional way, however, `app.R` is more common now.
+Either is fine
+:::
+
+## Application types
+
+::: {.incremental}
+- We used the `app.r` but it is possible to use (or see) two files being used for `ui` and `server`.
+- Early on Shiny relied on two files but it has since been updated to one file.
+- Which format you use depends on your app and what you prefer.
+:::
+
+. . .
+
+
+## Not using the template
+
+::: {.incremental}
+- On a computer - first create a [project](https://intro-r-rstudio.nhsrcommunity.com/session-projects.html#/title-slide)
+- On the cloud and *next step* - open a new R file and save it as `app.R`
+:::
+
+. . .
+
+- Type `shinyapp` in the R file and the use Shift + Tab
+- Type `"Hello, world!"` between the brackets after the function `fluidPage`
+- Save file!
+- Run the app
+
+
+# Layout
+
+## Add sidebar?
+
+## Add a title
+
+:::{.callout-tip collapse=false appearance='default' icon=true}
+## Titles using `titlePanel()`
+The template app had a title in the `ui <- fluidPage()` section
+
+```{r}
+    # Application title
+    titlePanel("Old Faithful Geyser Data"),
+```
+
+but this is not included using this method.
+:::
+
+. . .
+
+::: {.incremental}
+- Let's add the title to the minimal template
+- Change the name
+- Note there is a comma at the end of the line - not good practice to leave in but it works and useful for adding future code to this section
+:::
+
+# Inputs
+
+Add an input
+
+# Outputs
+
+
+
+## Bit more to the app
+
+Replace the text after the function `fluidPage()` with:
+
+```{r}
+  selectInput("dataset", label = "Built in R datasets", choices = ls("package:datasets")),
+  verbatimTextOutput("summary"),
+  tableOutput("table")
+```
+
+Save and Run
+
+## UI functions
+
+::: {.incremental}
+- `fluidPage()` sets up the visual structure of the page
+- `selectInput()` lets the user interact with the app by providing a value
+- `verbatimTextOutput()` and `tableOutput()` are output controls that tell Shiny where to put rendered output
+:::
+
+
+```{r}
+#| eval: false
+ui <- fluidpage(
+  selectInput("dataset", label = "Built in R datasets", choices = ls("package:datasets")),
+  verbatimTextOutput("summary"),
+  tableOutput("table")
+)
+```
+
+. . .
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## What's in the functions?
+- HTML!
+- Call a function outside a Shiny app (in the console) to see `shiny::fluidPage()`
+:::
+
+## Server functions
+
+ We have the code saying what's possible to select (UI) but not what is going to appear (Server)
+
+. . .
+
+So if we add the following between the `{` after `function(input, output, session)`, save and run:
+
+```{r}
+  output$summary <- renderPrint({
+    dataset <- get(input$dataset, "package:datasets")
+    summary(dataset)
+  })
+  
+  output$table <- renderTable({
+    dataset <- get(input$dataset, "package:datasets")
+    dataset
+  })
+```
+
+## [Exercise (from Mastering Shiny)](https://mastering-shiny.org/basic-app.html#exercises)
+
+Take the following code fix the error
+
+```{r}
+ui <- fluidPage(
+  sliderInput("x", label = "If x is", min = 1, max = 50, value = 30),
+  "then x times 5 is",
+  textOutput("product")
+)
+
+server <- function(input, output, session) {
+  output$product <- renderText({ 
+    x * 5
+  })
+}
+
+shinyApp(ui, server)
+```
+
+:::{.callout-tip collapse=false appearance='default' icon=true}
+## How to create a new app
+- Remember the first slide on how to create a new app (from next step)
+:::
+
+```{r}
+#| eval: true
+#| echo: false
+countdown::countdown(minutes = 10,
+                     color_border = "#005EB8",
+                     color_text = "#005EB8",
+                     color_running_text = "white",
+                     color_running_background = "#005EB8",
+                     color_finished_text = "#005EB8",
+                     color_finished_background = "white",
+                     margin = "0.9em",
+                     font_size = "2em")
+```
+
+## Solution
+
+```{r}
+#| code-line-numbers: "12"
+library(shiny)
+
+ui <- fluidPage(
+  sliderInput("x", label = "If x is", min = 1, max = 50, value = 30),
+  "then x times 5 is",
+  textOutput("product")
+)
+
+server <- function(input, output, session) {
+
+  output$product <- renderText({
+    input$x * 5
+  })
+}
+
+shinyApp(ui, server)
+```
+
+
+## Reduce duplication!
+
+No matter what you code in, duplication will eventually cause more work:
+
+::: {.incremental}
+- Cause bugs as one change can be in multiple places
+- Can be computationally wasteful
+:::
+
+. . .
+
+In R code we avoid duplication using variables or functions but these [don't work or aren't efficient](https://mastering-shiny.org/reactive-motivation.html#motivation) in Shiny apps
+
+## Reactive expressions
+
+Uses a function and new code structure with round and curly brackets
+
+```{r}
+reactive({})
+```
+
+We can update the code in the shiny app by adding into the server object
+
+```{r}
+# Create a reactive expression
+  dataset <- reactive({
+    get(input$dataset, "package:datasets")
+  })
+```
+
+. . .
+
+Removing the lines
+
+```{r}
+dataset <- get(input$dataset, "package:datasets")
+```
+
+Let's try this (it will be broken!)...
+
+## Famous error message
+
+```
+Error: object of type 'closure' is not subsettable
+Error: cannot coerce class ‘c("reactiveExpr", "reactive", "function")’ to a data.frame
+```
+
+. . . 
+
+Although `data` is referred to it needs to be the reactive form so replace `dataset` with `dataset()`
+
+And try running again...
+
+## [Exercise from Mastering Shiny](https://mastering-shiny.org/basic-app.html#exercises)
+
+Let's make the following code reactive and remove the repetition
+
+```{r}
+library(shiny)
+
+ui <- fluidPage(
+  sliderInput("x", "If x is", min = 1, max = 50, value = 30),
+  sliderInput("y", "and y is", min = 1, max = 50, value = 5),
+  "then, (x * y) is", textOutput("product"),
+  "and, (x * y) + 5 is", textOutput("product_plus5"),
+  "and (x * y) + 10 is", textOutput("product_plus10")
+)
+
+server <- function(input, output, session) {
+  output$product <- renderText({ 
+    product <- input$x * input$y
+    product
+  })
+  output$product_plus5 <- renderText({ 
+    product <- input$x * input$y
+    product + 5
+  })
+  output$product_plus10 <- renderText({ 
+    product <- input$x * input$y
+    product + 10
+  })
+}
+
+shinyApp(ui, server)
+```
+
+```{r}
+#| eval: true
+#| echo: false
+countdown::countdown(minutes = 10,
+                     color_border = "#005EB8",
+                     color_text = "#005EB8",
+                     color_running_text = "white",
+                     color_running_background = "#005EB8",
+                     color_finished_text = "#005EB8",
+                     color_finished_background = "white",
+                     margin = "0.9em",
+                     font_size = "2em")
+```
+
+## Solution
+
+```{r}
+#| code-line-numbers: "13|16|19|22"
+library(shiny)
+
+ui <- fluidPage(
+  sliderInput("x", "If x is", min = 1, max = 50, value = 30),
+  sliderInput("y", "and y is", min = 1, max = 50, value = 5),
+  "then, (x * y) is", textOutput("product"),
+  "and, (x * y) + 5 is", textOutput("product_plus5"),
+  "and (x * y) + 10 is", textOutput("product_plus10")
+)
+
+server <- function(input, output, session) {
+  
+  product <- reactive({input$x * input$y})
+  
+  output$product <- renderText({
+    product()
+  })
+  output$product_plus5 <- renderText({
+    product() + 5
+  })
+  output$product_plus10 <- renderText({
+    product() + 10
+  })
+}
+
+shinyApp(ui, server)
+
+```
+
+
+## [Exercise (from Mastering Shiny)](https://mastering-shiny.org/basic-app.html#exercises)
+
+Take the following code and move the lines *you think you'll need* to the right places in a shiny app
+
+```{r}
+tableOutput("mortgage")
+output$greeting <- renderText({
+  paste0("Hello ", input$name)
+})
+numericInput("age", "How old are you?", value = NA)
+textInput("name", "What's your name?")
+textOutput("greeting")
+output$histogram <- renderPlot({
+  hist(rnorm(1000))
+}, res = 96)
+
+```
+
+```{r}
+#| eval: true
+#| echo: false
+countdown::countdown(minutes = 10,
+                     color_border = "#005EB8",
+                     color_text = "#005EB8",
+                     color_running_text = "white",
+                     color_running_background = "#005EB8",
+                     color_finished_text = "#005EB8",
+                     color_finished_background = "white",
+                     margin = "0.9em",
+                     font_size = "2em")
+```
+
+## Solution
+
+```{r}
+library(shiny)
+
+ui <- fluidPage(
+  textInput("name", "What's your name?"),
+  textOutput("greeting"),
+)
+
+server <- function(input, output, session) {
+  output$greeting <- renderText({
+    paste0("Hello ", input$name)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+
+## End session
+
+### Acknowledgements
+
+[Mastering Shiny](https://mastering-shiny.org/basic-app.html) by Hadley Wickham  
+[Beginners course by Chris Beeley](https://github.com/ChrisBeeley/shiny_beginners/tree/main) aimed at relatively novice R users  
+[Shiny workshop for NHS-R Community](https://www.youtube.com/watch?v=wEYaeltxlys&list=PLXCrMzQaI6c1Na7BE18OsWtE1WKqrclNn&index=27)  
+[Shiny workshop materials](https://github.com/nhs-r-community/shiny-training) on the NHS-R Community GitHub.
