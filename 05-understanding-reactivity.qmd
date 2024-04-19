@@ -1,0 +1,320 @@
+---
+title: "Understanding reactivity"
+---
+
+```{r}
+#| label: "libs"
+#| include: false
+#| eval: true
+#| echo: false
+
+library(countdown)
+```
+
+## Introducing a simplified reactive app
+
+The real magic of Shiny happens when you have an app with inputs and outputs 
+
+. . .
+
+and the two "react" to each other
+
+```{r}
+ui <- fluidPage(
+  textInput(inputId = "name", 
+            label = "What's your name?"),
+  textOutput("greeting")
+)
+
+server <- function(input, output, session) {
+  output$greeting <- renderText({
+    paste0("Hello ", input$name, "!")
+  })
+}
+```
+
+## Looking for "name" and "greeting"
+
+::: {.incremental}
+- The ui `textInput()` is providing the information for the server `input$name` 
+- And that is updating the object `output$greeting` in the server that updates the `textOutput("greeting")` in the ui
+- The updates occur every time something is changed
+:::
+
+## The mental model
+
+Unlike with R where updates like this occur when we run the code, here Shiny is being told *how it could* create the string if it needs to. The possibilities are:
+
+::: {.incremental}
+- This code is never run as the option is not used
+- It might be run as soon as the app is launched
+- It might be run once some time after the launch
+- ... there are many possibilities
+:::
+
+. . .
+
+:::{.callout-tip collapse=false appearance='default' icon=true}
+## Tip!
+Think of a Shiny app as providing recipes and not giving commands!
+:::
+
+
+## Introducing a new input
+
+Four inputs were mentioned previously:
+
+* `sliderInput()`  
+* `selectInput()`  
+* `textInput()`  
+* `numericInput()`
+. . .
+
+And there are more! We are going to use `checkboxGroupInput()` in a new app.
+
+## Building a new app
+
+Starting again with a new script, typing `shinyapp` and then Shift + Tab add the code to `ui`, save and Run App
+
+```{r title and checkbox}
+ titlePanel("Basic Demo"), 
+ checkboxGroupInput(
+    inputId = "name1",
+    label = "What are your favourite languages?",
+    choices = c("SQL", "Python", "R")
+  ),
+```
+
+## Adding an action button
+
+Next we'll add an action button so, after making a selection, the user presses a button for the next thing to happen:
+
+```{r}
+  actionButton(inputId = "name2",
+               label = "List the selections",
+               icon = icon("question"))
+```
+
+. . .
+
+:::{.callout-warning collapse=false appearance='default' icon=true}
+## Don't forget the comma!
+- In the ui the functions need a comma to separate
+- The code will break unless it reads `checkboxGroupInput(...)`  **,**  `actionButton(...)`
+:::
+
+## Panels
+
+Before we move to the interactive part of shiny we've currently got the layout where everything is appearing on the page as if it were a document.
+
+## Panel functions
+
+To give the app more structure that are more familiar we need to introduce three functions:
+
+```{r}
+#| code-line-numbers: 2|3|15
+ui <- fluidPage(titlePanel("Basic Demo"), 
+                sidebarLayout(
+                sidebarPanel(
+                    checkboxGroupInput(
+                      inputId = "name1",
+                      label = "What are your favourite languages?",
+                      choices = c("SQL", "Python", "R")
+                    ),
+                    actionButton(
+                      inputId = "name2",
+                      label = "Selected",
+                      icon = icon("question")
+                    )
+                ),
+                mainPanel(textOutput(outputId = "name3"))
+                )
+)
+```
+
+## Tips
+
+::: {.incremental}
+- All three functions `sidebarLayout()`, `sidebarPanel()` and `mainPanel()` are needed to run the app
+- If the copying and pasting loses the formatting, highlight and use `Ctrl+i` for indentation
+- Alternatively install {styler} which can reformat selection or the entire script
+:::
+
+## `output$` and `input$` in the server
+
+::: {.incremental}
+- We now need to add in the server and have it "reactive" to what is selected in the ui
+- The output will be simple in that we'll just show what is selected (a useful thing sometimes for debugging)
+- Note in the `mainPanel()` the function `textOutput()` is used and that has a partnering function: `renderText()` in the server
+:::
+
+## server code
+
+```{r}
+server <- function(input, output, session) {
+    observeEvent(input$name2, {
+    output$name3 <- renderText(input$name1)
+    })
+}
+```
+
+Copy and paste this, save and run
+
+## Exercise - renaming placeholders
+
+Replace the names `name1`, `name2`, `name3` with more descriptive names, paying attention to where the repetitions occur
+
+```{r}
+#| eval: true
+#| echo: false
+countdown::countdown(minutes = 10,
+                     color_border = "#005EB8",
+                     color_text = "#005EB8",
+                     color_running_text = "white",
+                     color_running_background = "#005EB8",
+                     color_finished_text = "#005EB8",
+                     color_finished_background = "white",
+                     margin = "0.9em",
+                     font_size = "2em")
+```
+
+## `observeEvent()`
+
+::: {.incremental}
+- The app takes the input from the button in this example and until the button is pressed nothing will be printed.
+- Once pressed any selection or de-selection is updated automatically.
+- What about making the app require the button to be pressed before printing?
+- For that we need a different function...
+:::
+
+## `bindEvent()`
+
+`bindEvent()` can be used to execute only when a button is pressed. We'll replace the code 
+
+```{r}
+  observeEvent(input$name2, {
+    output$name3 <- renderText(input$name1)
+  })
+```
+
+with 
+
+```{r}
+output$name3 <- renderText({
+  input$name1
+}) |>
+  bindEvent(input$name2)
+
+```
+
+:::{.callout-warning collapse=false appearance='default' icon=true}
+## Remember your code will be different now
+- In the last slide you will have changed `name1` and so on to something more readable!
+- If names don't match you might not get an error just nothing prints.
+:::
+
+## The formal names - imperative and declarative 
+
+Mastering Shiny explains this really well:
+
+::: {.incremental}
+- Imperative is where you issue a particular command and it's carried out immediately.
+- This is what we are familiar with in analysis scripts.
+- Declarative describes the goals and the software figures out how to achieved them without intervention.
+:::
+
+## Laziness
+
+Although it's a strength of Shiny that declarative programming is lazy it does mean that code can have bugs but no errors.
+
+If you recall when we changed `names1` to other names there was **no error** if these did not appear in both the ui and server.
+
+This applies to functions so if don't pair them correctly:
+
+```{r}
+output$name3 <- renderPlot({ # should be renderText()
+  input$name1
+}) |>
+  bindEvent(input$name2)
+
+```
+
+## Execution order
+
+The familiar analysis scripts are run in the order of lines. 
+
+Quarto reports for example, need to particularly have everything in the right order to run.
+
+This isn't the case for Shiny! 
+
+## [Exercise (from Mastering Shiny)](https://mastering-shiny.org/basic-reactivity.html#exercises-3)
+
+Given this UI:
+
+```{r}
+ui <- fluidPage(
+  textInput("name", "What's your name?"),
+  textOutput("greeting")
+)
+```
+
+Fix the simple errors found in each of the three server functions below. First try spotting the problem just by reading the code; then run the code to make sure you’ve fixed it.
+
+```{r}
+server1 <- function(input, output, server) {
+  input$greeting <- renderText(paste0("Hello ", name))
+}
+
+server2 <- function(input, output, server) {
+  greeting <- paste0("Hello ", input$name)
+  output$greeting <- renderText(greeting)
+}
+
+server3 <- function(input, output, server) {
+  output$greting <- paste0("Hello", input$name)
+}
+```
+
+```{r}
+#| eval: true
+#| echo: false
+countdown::countdown(minutes = 8,
+                     color_border = "#005EB8",
+                     color_text = "#005EB8",
+                     color_running_text = "white",
+                     color_running_background = "#005EB8",
+                     color_finished_text = "#005EB8",
+                     color_finished_background = "white",
+                     margin = "0.9em",
+                     font_size = "2em")
+```
+
+## Solution
+
+```{r}
+
+server1 <- function(input, output, session) {
+  output$greeting <- renderText(paste0("Hello ", input$name))
+}
+
+server2 <- function(input, output, server) {
+  greeting <- reactive(paste0("Hello ", input$name))
+  output$greeting <- renderText(greeting())
+}
+
+server3 <- function(input, output, session) {
+  output$greeting <- renderText({
+    paste0("Hello ", input$name)
+    })
+}
+
+```
+
+
+## End session
+
+### Acknowledgements
+
+[Mastering Shiny](https://mastering-shiny.org/basic-app.html) by Hadley Wickham
+
+[Building Web Apps with R Shiny](https://debruine.github.io/shinyintro/first-app.html) from [PsyTeachR](https://psyteachr.github.io/)

@@ -1,0 +1,34 @@
+---
+title: "Next Steps"
+---
+
+
+:::{.callout-tip collapse=false appearance='default' icon=true}
+## {golem}
+- If the app is big or is being built for production then consider looking into {golem}
+- {golem} uses many principles from R package development - check out [nhsbsaShinyR template](https://github.com/nhsbsa-data-analytics/nhsbsaShinyR)
+- It also supports modules which can be reused across complex shiny apps
+:::
+
+## The future of Shiny - is here!
+
+As RStudio renamed to Posit in 2022 to extend their language association beyond R, so they are also working on extending Shiny apps
+
+::: {.incremental}
+- To be compatible with the power of [Python](https://shiny.posit.co/py/)
+- To publish without a server using [Shinylive](https://jcheng5.github.io/posit-conf-2023-shinylive/#/title-slide)
+- An example is this [app](https://matt-dray.github.io/govspeakify-tables/) that converts a table to Govspeak Markdown, the format required for publishing reports by the UK's government from Matt Dray's [blog](https://www.rostrum.blog/posts/2023-10-08-govspeakify-tables/)
+:::
+
+
+## Cheat sheets
+
+[Cheat sheets](https://posit.co/resources/cheatsheets/) are a great way of seeing the possible functions in a package like {shiny}
+
+But are also built into RStudio in Help > Cheat Sheets > Web applications with Shiny
+
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Where to find Cheat sheets 
+- Download from the web
+- Are pdf and in landscape format
+:::

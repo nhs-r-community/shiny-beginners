@@ -1,9 +1,10 @@
 project:
-  title: "shiny-beginners"
+  title: "Shiny for R"
   render:
     - "*.qmd"
     - "!LICENCE.md"
-author: "Zoë Turner"
+subtitle: "Shiny for R"
+author: "NHS-R Community"
 format:
   revealjs:
     theme: [default, nhsr-quarto.scss]
