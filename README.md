@@ -31,3 +31,6 @@ The link to the published materials is in a suggested order.
 # Spotted a mistake?
 Please let us know if there are mistakes or improvements by creating an 
 [issue](https://github.com/nhs-r-community/intro-r-rstudio/issues).  
+
+# Additional resources
+[Posit Shiny guidance](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html)
